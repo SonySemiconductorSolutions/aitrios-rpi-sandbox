@@ -1,0 +1,4 @@
+Flask
+picamera2 
+numpy 
+opencv-python-headless
