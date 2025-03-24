@@ -1,0 +1,15 @@
+[submodule "examples/homecamera-app/dependencies/aitrios-rpi-application-module-library"]
+	path = examples/homecamera-app/dependencies/aitrios-rpi-application-module-library
+	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library.git
+
+[submodule "examples/privacy-mask/dependencies/aitrios-rpi-application-module-library"]
+	path = examples/privacy-mask/dependencies/aitrios-rpi-application-module-library
+	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library.git
+
+[submodule "examples/sleep-detection/dependencies/aitrios-rpi-application-module-library"]
+	path = examples/sleep-detection/dependencies/aitrios-rpi-application-module-library
+	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library.git
+
+[submodule "examples/virtual-fitting/dependencies/aitrios-rpi-application-module-library"]
+	path = examples/virtual-fitting/dependencies/aitrios-rpi-application-module-library
+	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library.git

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+    SPDX-FileCopyrightText: 2023-2024 Sony Semiconductor Solutions Corporation
+    SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+<head>
+    <title>Pi Camera Object Detection</title>
+    <style>
+        #container {
+            display: flex;
+        }
+        #video {
+            width: 60%;
+        }
+        #stats {
+            width: 35%;
+            padding-left: 20px;
+        }
+    </style>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Raspberry Pi Camera Stream with Docker</h1>
+    <div id="container">
+        <div id="video">
+            <img src="{{ url_for('video_feed') }}" width="100%" />
+        </div>
+        <div id="stats">
+            <h2>Detection Statistics</h2>
+            <div>
+                <h3>Detection Count by Class:</h3>
+                <!-- Canvas element for the chart -->
+                <canvas id="detectionChart" width="400" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initial Chart.js setup (starting with empty data)
+        const ctx = document.getElementById('detectionChart').getContext('2d');
+        const detectionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],  // Frame numbers, etc. (based on data returned by the server)
+                datasets: []
+            },
+            options: {
+                animation: {
+                    duration: 0  // Disable animation (draw immediately)
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Time' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Detection Count' },
+                        beginAtZero: true,
+                        min: 0,
+                        max: 5,      // Fix maximum value to 5
+                        ticks: {
+                            stepSize: 1  // Tick marks at 1-unit intervals
+                        }
+                    }
+                }
+            }
+        });
+
+        // Function to fetch detection data from the server and update the chart
+        function updateChart() {
+            fetch('{{ url_for("detection_data") }}')
+                .then(response => response.json())
+                .then(data => {
+                    detectionChart.data.labels = data.frameLabels;
+                    detectionChart.data.datasets = data.datasets;
+                    detectionChart.update();
+                })
+                .catch(error => console.error('Error fetching detection data:', error));
+        }
+
+        // Update the chart every 1 second
+        setInterval(updateChart, 1000);
+    </script>
+</body>
+</html>
