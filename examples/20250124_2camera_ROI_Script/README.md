@@ -24,9 +24,9 @@ confirm the Linux Kernel version
     uname -a
     Linux raspberrypi 6.6.62+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.6.62-1+rpt1 (2024-11-25) aarch64 GNU/Linux
 
-# 2. Connect Raspberry pi5 with two ai camera
+# 2. Connect Raspberry pi5 with two AI Camera
 
-Connect Raspberry pi5 with 2 imx500 ai camera, and confirm the information as follows
+Connect Raspberry pi5 with 2 imx500 AI Camera, and confirm the information as follows
 
     $ rpicam-hello --list-cameras Available cameras
      ----------------- 

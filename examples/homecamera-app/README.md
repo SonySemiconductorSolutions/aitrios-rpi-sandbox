@@ -1,6 +1,6 @@
 # Home Camera App 
 ## はじめに
-こちらのサンプルアプリについては[Qiita記事](https://qiita.com/SSS-AtsushiNishimura/private/49058923518bf91729ce)でも公開しておりますので、必要に応じてご参照ください。
+こちらのサンプルアプリケーションについては[Qiita記事](https://qiita.com/SSS-AtsushiNishimura/private/49058923518bf91729ce)でも公開しておりますので、必要に応じてご参照ください。
 
 ## セットアップ
 submoduleのセットアップについては[aitrios-rpi-application-module-library](https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library)を参考にしてください。  

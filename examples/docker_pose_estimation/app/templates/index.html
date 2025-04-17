@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--
+    SPDX-FileCopyrightText: 2025 Sony Semiconductor Solutions Corporation
+    SPDX-License-Identifier: Apache-2.0
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pose Estimation Streaming</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    /* コンテナは左右並べ、中央寄せ */
+    #container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    /* 各ストリーム領域は固定サイズ（例: 640x480） */
+    .stream {
+      position: relative;
+      width: 640px;
+      height: 480px;
+      background: #fff; /* 背景は白 */
+      border: 1px solid #ccc;
+      overflow: hidden;
+    }
+    /* ストリーミング画像は固定サイズで表示（拡大・縮小しない） */
+    .stream img {
+      width: 640px;
+      height: 480px;
+      display: block;
+    }
+    /* Poseフィードの場合、画像を重ねて表示 */
+    #pose img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      mix-blend-mode: multiply;
+    }
+    /* アップロードボタンは右側プレビュー内の下中央に配置 */
+    #uploadContainer {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 5px 10px;
+      border-radius: 5px;
+      z-index: 3;
+    }
+    /* タイトルはストリーム内の上部に表示 */
+    .stream h2 {
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      padding: 2px 8px;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 3;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pose Estimation Streaming</h1>
+  
+  <div id="container">
+    <!-- 左側: オリジナル映像 -->
+    <div class="stream" id="video">
+      <h2>Original Video</h2>
+      <img src="{{ url_for('video_feed') }}" alt="Video Feed">
+    </div>
+    <!-- 右側: Pose Estimation（Skeleton Only） -->
+    <div class="stream" id="pose">
+      <h2>Pose Estimation (Skeleton Only)</h2>
+      <img src="{{ url_for('pose_feed') }}" alt="Pose Feed">
+      <!-- アップロードボタンを右側プレビュー内の下中央に配置 -->
+      <div id="uploadContainer">
+        <input type="file" id="bgUpload" accept="image/*">
+        <label for="bgUpload">Upload Background Image</label>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // ファイルアップロード時、FileReaderで読み込み、右側の背景として設定
+    document.getElementById('bgUpload').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('pose').style.backgroundImage = 'url(' + e.target.result + ')';
+        document.getElementById('pose').style.backgroundSize = 'cover';
+        document.getElementById('pose').style.backgroundPosition = 'center';
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
