@@ -4,7 +4,6 @@
 This example contains a Dockerized Flask application that streams video from a Raspberry Pi AI Camera and performs real-time pose estimation, ensuring user privacy by displaying only skeletal information on a neutral background. 
 This approach is ideal for monitoring elderly individuals or other privacy-sensitive environments.
 
-![GIF](pose_estimation_demo.gif)
 
 ## Installation
 
