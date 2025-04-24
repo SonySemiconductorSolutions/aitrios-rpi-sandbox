@@ -3,7 +3,7 @@
 This is an application that detects human poses with the Raspberry Pi AI Camera and overlays T-shirt images on them.
 <img src="virtual-fitting_sample.gif" alt="GIF image of Virtual Fitting App" width="700">  
 
-Additional explanation of this application can be found in a [Qiita article](https://github.com/SonySemiconductorSolutions/aitrios-qiita/) (Japanese).
+Additional explanation of this application can be found in a [Qiita article](https://qiita.com/SSS-TakahashiKatsuya/items/a4177ee6808e45a47175) (Japanese).
 
 
 ## Setup
