@@ -30,5 +30,4 @@ This article explores the use of an object detection model to detect whether a d
 - When detecting the cell phone
 Cell phone usage time will be informed and the alarm with using espeak: ("Warning! Warning! Cell phone detected! Cell phone detected! Please do not use cell phone during driving")
 
-Be noticed that please revise the email address and the path for saving screeningshot before you run the script.For more information, please refers to the Qiita
-https://github.com/SonySemiconductorSolutions/aitrios-qiita/blob/feature/issue-70/articles/20250129_driver_monitor/driver_monitor.md
+Be noticed that please revise the email address and the path for saving screeningshot before you run the script.
