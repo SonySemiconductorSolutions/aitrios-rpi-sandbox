@@ -29,7 +29,7 @@
    apt install python3-opencv imx500-all python3-munkres
    ```
 
-2. **HigherHRNet モデルのダウンロード**：
+2. **HigherHRNet モデルのダウンロード**:
    *もしすでに APT を通じて imx500-all をインストールしている場合は、このステップをスキップできます*
    [RaspberryPi Repo](https://github.com/raspberrypi/imx500-models/raw/refs/heads/main/imx500_network_higherhrnet_coco.rpk) から必要なモデルファイルをダウンロードしてください。
 
