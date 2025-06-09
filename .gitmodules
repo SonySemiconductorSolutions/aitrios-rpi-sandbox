@@ -13,3 +13,6 @@
 [submodule "examples/virtual-fitting/dependencies/aitrios-rpi-application-module-library"]
 	path = examples/virtual-fitting/dependencies/aitrios-rpi-application-module-library
 	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library.git
+[submodule "examples/unwell-person-detection/dependencies/aitrios-rpi-application-module-library"]
+	path = examples/unwell-person-detection/dependencies/aitrios-rpi-application-module-library
+	url = https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library
