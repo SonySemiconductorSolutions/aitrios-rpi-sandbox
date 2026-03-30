@@ -107,12 +107,12 @@ def process_camera_stream():
                     kp_array = detection.keypoints[0]
                     
                     # Calculate the number of keypoints (array length / 2)
-                    num_keypoints = len(kp_array) // 2
+                    num_keypoints = len(kp_array)
                     
                     for i in range(num_keypoints):
                         # Get y and x coordinates
-                        y = kp_array[i * 2]
-                        x = kp_array[i * 2 + 1]
+                        y = kp_array[i][1]
+                        x = kp_array[i][0]
                         
                         keypoints.append({
                             'id': i,
@@ -196,7 +196,7 @@ def process_camera_stream():
                     )
                 
                 # Annotate skeleton
-                annotator.annotate_poses(frame, detections)
+                annotator.annotate_keypoints(frame, detections)
                 
                 # Convert the frame to JPEG format
                 _, buffer = cv2.imencode('.jpg', frame.image)

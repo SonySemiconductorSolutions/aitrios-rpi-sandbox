@@ -16,7 +16,7 @@
 
 import cv2
 from modlib.devices import AiCamera
-from modlib.models.zoo import Higherhrnet
+from modlib.models.zoo import Posenet
 from modlib.apps.tracker.byte_tracker import BYTETracker
 
 # Constants defenition
@@ -51,16 +51,15 @@ def overlay_image_on_upper_body(frame, keypoints, overlay_image):
     """
     scene = frame.image
     height, width = scene.shape[:2]
-    
     # Convert normalized keypoint coordinates to actual image coordinates
-    left_shoulder_x  = int(keypoints[5 * 2 + 1] * width)
-    left_shoulder_y  = int(keypoints[5 * 2] * height)
-    right_shoulder_x = int(keypoints[6 * 2 + 1] * width)
-    right_shoulder_y = int(keypoints[6 * 2] * height)
-    left_hip_x       = int(keypoints[11 * 2 + 1] * width)
-    left_hip_y       = int(keypoints[11 * 2] * height)
-    right_hip_x      = int(keypoints[12 * 2 + 1] * width)
-    right_hip_y      = int(keypoints[12 * 2] * height)
+    left_shoulder_x  = int(keypoints[5][0] * width)
+    left_shoulder_y  = int(keypoints[5][1] * height)
+    right_shoulder_x = int(keypoints[6][0] * width)
+    right_shoulder_y = int(keypoints[6][1] * height)
+    left_hip_x       = int(keypoints[11][0] * width)
+    left_hip_y       = int(keypoints[11][1] * height)
+    right_hip_x      = int(keypoints[12][0] * width)
+    right_hip_y      = int(keypoints[12][1] * height)
     
     # Determine upper body bounding box coordinates
     right_top_x   = select_valid_coordinate(right_shoulder_x, right_hip_x)
@@ -78,22 +77,35 @@ def overlay_image_on_upper_body(frame, keypoints, overlay_image):
     
     try:
         resized_overlay = cv2.resize(overlay_image, (overlay_img_w, overlay_img_h))
-
-        # Separate alpha channel
-        alpha_channel = resized_overlay[:, :, 3] / 255.0
-        rgb_channels  = resized_overlay[:, :, :3]
-
-        # Copy the overlay part to the scene
-        for c in range(0, 3):
-            scene[overlay_img_y:overlay_img_y+overlay_img_h, overlay_img_x:overlay_img_x+overlay_img_w, c] = (alpha_channel * rgb_channels[:, :, c] + (1 - alpha_channel) * scene[overlay_img_y:overlay_img_y+overlay_img_h, overlay_img_x:overlay_img_x+overlay_img_w, c])
+        y1 = max(0, overlay_img_y)
+        y2 = min(height, overlay_img_y + overlay_img_h)
+        x1 = max(0, overlay_img_x)
+        x2 = min(width, overlay_img_x + overlay_img_w)
+        
+        oy1 = y1 - overlay_img_y
+        oy2 = oy1 + (y2 - y1)
+        ox1 = x1 - overlay_img_x
+        ox2 = ox1 + (x2 - x1)
+        
+        #check if image has alpha channel 
+        if resized_overlay.shape[2] == 4:
+            rgb_channels = resized_overlay[:, :, :3]
+            alpha_channel = resized_overlay[:, :, :3] /255.0
+            alpha_channel =alpha_channel[:, :, np.newaxis]
+            
+            alpha_crop = alpha_channel[oy1:oy2, ox1:ox2]
+            rgb_crop =rgb_channels[oy1:oy2, ox1:ox2]
+            
+            scene[y1:y2, x1:x2] = (alpha_crop * rgb_crop + (1 - alpha_crop) * scene[y1:y2, x1:x2]).astype(np.uint8)
+        else:
+            scene[y1:y2, x1:x2] = resized_overlay[oy1:oy2, ox1:ox2]
     except:
         pass
-
     return scene
 
 def start_workout_demo():
     device = AiCamera()
-    model = Higherhrnet()
+    model = Posenet()
     device.deploy(model)
 
     # Load the overlay image

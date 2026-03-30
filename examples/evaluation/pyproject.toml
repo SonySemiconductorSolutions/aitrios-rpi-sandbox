@@ -1,0 +1,57 @@
+[project]
+name = "evaluator"
+version = "0.1.0"
+description = "Model evaluator"
+readme = "README.md"
+authors = [{name="Sony Semiconductor Solutions Corp"}]
+requires-python = ">=3.11"
+dependencies = [
+    "modlib>=1.4",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "ruff>=0.8"]
+
+[tool.uv]
+python-preference = "system"
+
+[tool.uv.sources]
+# Local editable install for modlib development: uncomment and set path to your modlib repo
+# modlib = { path = "../../../modlib-dev", editable = true }
+
+[project.scripts]
+evaluator = "evaluator.__main__:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src/evaluator"]
+omit = []
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+src = ["src", "tests", "examples"]
+exclude = [".venv", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[build-system]
+requires = ["uv_build>=0.9.22,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=7.0.0",
+]

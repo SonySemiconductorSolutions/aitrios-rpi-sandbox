@@ -46,10 +46,10 @@ def track_motionless(w, h, poses_record, motionless_count):
     for keypoint_idx in range(len(KEYPOINT_NAME)):
         if (poses_record[0].keypoint_scores[0][keypoint_idx] >= KEYPOINT_SCORE_THRESHOLD and 
             poses_record[1].keypoint_scores[0][keypoint_idx] >= KEYPOINT_SCORE_THRESHOLD):
-            x0 = int(poses_record[0].keypoints[0][2 * keypoint_idx + 1] * w)
-            y0 = int(poses_record[0].keypoints[0][2 * keypoint_idx] * h)
-            x1 = int(poses_record[1].keypoints[0][2 * keypoint_idx + 1] * w)
-            y1 = int(poses_record[1].keypoints[0][2 * keypoint_idx] * h)
+            x0 = int(poses_record[0].keypoints[0][keypoint_idx][0] * w)
+            y0 = int(poses_record[0].keypoints[0][keypoint_idx][1] * h)
+            x1 = int(poses_record[1].keypoints[0][keypoint_idx][0] * w)
+            y1 = int(poses_record[1].keypoints[0][keypoint_idx][1] * h)
             print(f"{KEYPOINT_NAME[keypoint_idx]}   x:{x0}, y:{y0}")
             
             distance = (x1 - x0)**2 + (y1 - y0)**2
@@ -108,7 +108,7 @@ def detect_sleep():
                     print("[INFO] Detect Sleep")
                     display_text(frame.image)
 
-                annotator.annotate_poses(frame, frame.detections)
+                annotator.annotate_keypoints(frame, frame.detections)
                 frame.display()
 
 # Main

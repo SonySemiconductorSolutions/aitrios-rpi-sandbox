@@ -1,15 +1,20 @@
-# Sleep Detection 
-## はじめに
-こちらのサンプルアプリケーションについては[Qiita記事](https://qiita.com/SSS-AtsushiNishimura/private/967d4682dbdecd3d8161)でも公開しておりますので、必要に応じてご参照ください。
+# Sleep Detection
 
-## セットアップ
-submoduleのセットアップについては[aitrios-rpi-application-module-library](https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library)を参考にしてください。  
-別途、pip installにて下記のパッケージをインストールしてください。
+## Introduction
+This sample application is also published in a [Qiita article](https://qiita.com/SSS-AtsushiNishimura/private/967d4682dbdecd3d8161). Please refer to it as needed.
 
-    pip install opencv-python
+## Setup
+Follow the installation instructions provided in the [UV documentation](https://docs.astral.sh/uv/getting-started/installation/) to set it up.
+Verify your uv installation by running:
 
+```
+uv --version
+```
 
-## アプリ実行
-下記のコマンドを実行します。
+This application uses the [Application Module Library](https://github.com/SonySemiconductorSolutions/aitrios-rpi-application-module-library). Follow link to find more on Application Module Library.
 
-    python3 SleepDetection.py
+## Running the App
+Execute the following command to start the application and install all the required packages:
+```
+uv run SleepDetection.py
+```
